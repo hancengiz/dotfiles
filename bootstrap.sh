@@ -5,6 +5,7 @@ cd "$(dirname "${BASH_SOURCE}")";
 function doIt() {
 	rsync --exclude ".git/" \
 		--exclude ".DS_Store" \
+		--exclude "README.md" \
 		--exclude ".osx" \
 		--exclude "bootstrap.sh" \
 		-avh --no-perms . ~;
