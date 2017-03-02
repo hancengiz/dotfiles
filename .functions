@@ -1,1 +1,8 @@
 source thirsty.sh
+
+function git-all-pr() {
+  DEFAULT_DEPTH=3
+  depth=${1:-$DEFAULT_DEPTH}
+
+  find . -type d -depth $depth -name .git | xargs -I{} sh -c ' pushd {}/.. &&  git pull --rebase &&  popd';
+}
