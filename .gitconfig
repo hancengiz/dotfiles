@@ -1,0 +1,13 @@
+[alias]
+	co = checkout
+	br = branch
+	pr = pull --rebase
+	ci = commit
+	st = status
+	undo = reset HEAD~1	
+	unstage = reset HEAD --
+	last = log -1 HEAD
+	visual = !gitk
+[user]
+	name = Cengiz Han
+	email = cengiz@cengizhan.com
