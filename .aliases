@@ -1,2 +1,2 @@
 alias bash=/usr/local/bin/bash
-alias ll='ls -an'
+alias ll='ls -al'
