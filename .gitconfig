@@ -8,6 +8,7 @@
 	unstage = reset HEAD --
 	last = log -1 HEAD
 	visual = !gitk
+	ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
 [user]
 	name = Cengiz Han
 	email = cengiz@cengizhan.com
