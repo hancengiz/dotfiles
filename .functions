@@ -1,4 +1,4 @@
-source ~/thirsty.sh
+source ~/.thirsty.sh
 
 function git-all-pr() {
   DEFAULT_DEPTH=3
