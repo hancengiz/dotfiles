@@ -57,3 +57,5 @@ dbash() { docker exec -it $(docker ps -aqf "name=$1") bash; }
 alias dcu="docker-compose up"
 alias dcud="docker-compose up -d"
 alias dcd="docker-compose down"
+
+alias pj='python -m json.tool'
