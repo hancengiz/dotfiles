@@ -2,6 +2,22 @@
 
 Automated shell configuration for consistent development environments.
 
+```mermaid
+flowchart LR
+    A["🆕 Fresh Machine"] --> B["⚡ Run Installer"]
+    B --> C["🤖 Auto-Install:<br/>• Homebrew (macOS)<br/>• Node.js<br/>• 🤖 Claude Code CLI<br/>• 📱 Happy Coder<br/>• ccstatusline<br/>• Shell configs"]
+    C --> D["👤 Configure:<br/>Auth + Git (name/email/aliases) + Notifications"]
+    D --> E["🚀 Ready to Hack!"]
+
+    style A fill:#ffebee,stroke:#c62828,stroke-width:2px
+    style B fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style C fill:#e1f5ff,stroke:#0288d1,stroke-width:2px
+    style D fill:#fff9c4,stroke:#f9a825,stroke-width:2px
+    style E fill:#c8e6c9,stroke:#2e7d32,stroke-width:3px
+```
+
+**One command + 5 minutes = AI-powered development with Claude Code, push notifications, and real-time status tracking.**
+
 ## Quick Start
 
 ### GitHub Codespaces (Linux)
