@@ -1,6 +1,6 @@
 # Claude Code Notifications Setup
 
-This dotfiles configuration includes push notifications for Claude Code using **Happy Coder CLI**.
+This dotfiles configuration includes push notifications for Claude Code using **Happy Coder**.
 
 ## How It Works
 
@@ -11,7 +11,7 @@ Claude Code hooks send push notifications to your phone via Happy Coder when:
 ## What's Installed
 
 The installation scripts automatically install:
-- **Happy Coder CLI** (`@happy-coder/cli`) - Notification tool
+- **Happy Coder** (`happy-coder`) - Mobile Claude Code control and notification tool
 - **.claude-settings.json** - Pre-configured hooks
 
 No additional manual installation needed!
@@ -60,10 +60,10 @@ Follow the Happy setup instructions to connect your mobile device to your channe
 Test your notifications:
 ```bash
 # Test high-priority notification
-npx -y @happy-coder/cli send "🔔 Test notification from Claude Code" --priority high
+npx -y happy-coder send "🔔 Test notification from Claude Code" --priority high
 
 # Test normal notification
-npx -y @happy-coder/cli send "✅ Test complete"
+npx -y happy-coder send "✅ Test complete"
 ```
 
 You should receive push notifications on your mobile device.
@@ -89,11 +89,11 @@ Example customization in `.claude-settings.json`:
   "hooks": {
     "notification": {
       "type": "command",
-      "command": "npx -y @happy-coder/cli send '🔔 Claude needs your attention!' --priority high"
+      "command": "npx -y happy-coder send '🔔 Claude needs your attention!' --priority high"
     },
     "stop": {
       "type": "command",
-      "command": "npx -y @happy-coder/cli send '✅ Task completed successfully!'"
+      "command": "npx -y happy-coder send '✅ Task completed successfully!'"
     }
   }
 }

@@ -14,6 +14,8 @@
 .env.*
 !.env.example
 secrets.*
+.secrets.zsh
+.secrets.sh
 
 # ==============================================================================
 # Backup Files
@@ -24,6 +26,7 @@ secrets.*
 *.old
 *~
 .bashrc.local
+.zshrc.local
 
 # ==============================================================================
 # macOS
@@ -82,10 +85,11 @@ tmp/
 # Personal / Local
 # ==============================================================================
 # User-specific files that should not be committed
-local/
+# NOTE: DO NOT use 'local/' pattern as it would ignore our local-macos/ directory!
 personal/
 *.personal.*
 *.local.*
+/local/
 
 # Claude Code local state (if any)
 .claude/state.*

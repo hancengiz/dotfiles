@@ -1,0 +1,30 @@
+# macOS zsh configuration for dotfiles
+# Managed by: https://github.com/[your-username]/dotfiles
+
+# Set locale
+export LANG=en_US.UTF-8
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# Homebrew PATH (Apple Silicon)
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+
+# Local bin PATH
+export PATH="$HOME/.local/bin:$PATH"
+
+# Load Powerlevel10k theme
+source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
+
+# Load aliases
+[[ -f ~/.aliases ]] && source ~/.aliases
+
+# Load Powerlevel10k configuration
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+
+# Load secrets (API keys, tokens, etc.) - create this file locally, NOT in repo
+[[ -f ~/.secrets.zsh ]] && source ~/.secrets.zsh
