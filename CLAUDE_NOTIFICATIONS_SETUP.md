@@ -28,7 +28,7 @@ No configuration needed! The official Happy CLI automatically uses the default H
 1. Remove `HAPPY_SERVER_URL` from `.bashrc` (Codespaces) or `local-macos/.bashrc.macos` (macOS)
 2. The Happy CLI will use its default server automatically
 
-**Option B: Custom Happy Server Deployment**
+**Option B: Custom Happy Server Deployment ([self-hosting guide](https://happy.engineering/docs/guides/self-hosting/))**
 
 This repository is pre-configured with a custom Happy server deployment:
 ```bash
