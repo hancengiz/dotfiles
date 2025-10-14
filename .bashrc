@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# ============================================================================
+# PATH CONFIGURATION
+# ============================================================================
+
+# Add ~/bin to PATH
+export PATH="$HOME/bin:$PATH"
+
+# ============================================================================
+# HAPPY CODER CONFIGURATION
+# ============================================================================
+
+# Self-hosted Happy server URL
+export HAPPY_SERVER_URL="https://happy-cengiz.up.railway.app"
+
+# ============================================================================
+# LOAD ALIASES AND FUNCTIONS
+# ============================================================================
+
+# Load aliases and functions from separate file
+[ -f ~/.aliases ] && source ~/.aliases

@@ -1,0 +1,40 @@
+[alias]
+	co = checkout
+	br = branch
+	pr = pull --rebase
+	ci = commit
+	cl = clone
+	st = status
+	undo = reset HEAD~1	
+	unstage = reset HEAD --
+	last = log -1 HEAD
+	visual = !gitk
+	#some aliases from : http://durdn.com/blog/2012/11/22/must-have-git-aliases-advanced-examples/
+	ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+	#List commits showing changed files is invoked 
+	ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+	#List with no colors if you need to chain the out put with Unix pipes:
+	lnc = log --pretty=format:"%h\\ %s\\ [%cn]"
+	#List oneline commits showing dates:
+	lds = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
+	#List oneline commits showing relative dates:
+	ld = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative
+	#use word-diff
+	diffw = diff --word-diff
+	#Show a diff last commit:
+	dlc = diff --cached HEAD^
+	#Show content (full diff) of a commit given a revision:
+	dr  = "!f() { git diff "$1"^.."$1"; }; f"
+	lc  = "!f() { git ll "$1"^.."$1"; }; f"
+    diffr  = "!f() { git diff "$1"^.."$1"; }; f"
+	#Find a file path in codebase
+	f = "!git ls-files | grep -i"
+	#Search/grep your entire codebase for a string:
+	grep = grep -Ii
+    gr = grep -Ii
+	#list all aliases
+	la = "!git config -l | grep alias | cut -c 7-"
+	
+[user]
+	name = Cengiz Han
+	email = 104717+hancengiz@users.noreply.github.com

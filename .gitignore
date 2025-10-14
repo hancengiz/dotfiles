@@ -1,0 +1,92 @@
+# Dotfiles Repository .gitignore
+# Prevents accidental commit of secrets and sensitive data
+
+# ==============================================================================
+# API Keys and Secrets
+# ==============================================================================
+*_API_KEY*
+*_SECRET*
+*_TOKEN*
+*.key
+*.pem
+*.p12
+.env
+.env.*
+!.env.example
+secrets.*
+
+# ==============================================================================
+# Backup Files
+# ==============================================================================
+*.backup
+*.backup.*
+*.bak
+*.old
+*~
+.bashrc.local
+
+# ==============================================================================
+# macOS
+# ==============================================================================
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# ==============================================================================
+# Editor / IDE
+# ==============================================================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# ==============================================================================
+# Node.js (for conflict detection tool)
+# ==============================================================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# ==============================================================================
+# Temporary / Cache
+# ==============================================================================
+*.log
+*.tmp
+.cache/
+tmp/
+
+# ==============================================================================
+# Personal / Local
+# ==============================================================================
+# User-specific files that should not be committed
+local/
+personal/
+*.personal.*
+*.local.*
+
+# Claude Code local state (if any)
+.claude/state.*
+.claude/*.log
