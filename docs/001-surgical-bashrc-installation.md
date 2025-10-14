@@ -86,9 +86,8 @@ dotfiles/
 │   ├── .bashrc.macos         # macOS-specific bash configuration
 │   └── .aliases.macos        # macOS-specific aliases
 ├── docs/
-│   └── adr/
-│       └── 001-surgical-bashrc-installation.md
-├── CLAUDE_NOTIFICATIONS_SETUP.md
+│   ├── 001-surgical-bashrc-installation.md
+│   └── CLAUDE_NOTIFICATIONS_SETUP.md
 └── README.md
 ```
 

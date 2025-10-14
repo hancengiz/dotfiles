@@ -78,7 +78,7 @@ Get your GitHub no-reply email at: https://github.com/settings/emails
 
 If using Happy notifications:
 
-1. Follow [CLAUDE_NOTIFICATIONS_SETUP.md](CLAUDE_NOTIFICATIONS_SETUP.md)
+1. Follow [CLAUDE_NOTIFICATIONS_SETUP.md](docs/CLAUDE_NOTIFICATIONS_SETUP.md)
 2. Register with Happy server
 3. Install Happy mobile app
 4. Connect your device
