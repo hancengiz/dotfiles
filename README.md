@@ -208,12 +208,16 @@ dotfiles/
 ├── .bashrc                   # Codespaces
 ├── .aliases                  # Codespaces
 ├── .gitconfig                # Both
+├── .claude-settings.json     # Claude Code config
+├── ccstatusline.settings.json # ccstatusline config
 ├── install.sh                # Codespaces
 ├── install-macos.sh          # macOS
 ├── local-macos/
 │   ├── .bashrc.macos         # macOS
 │   └── .aliases.macos        # macOS
-└── .claude-settings.json     # Claude Code config
+└── docs/
+    ├── 001-surgical-bashrc-installation.md  # ADR
+    └── CLAUDE_NOTIFICATIONS_SETUP.md        # Notification setup
 ```
 
 ## Resources
