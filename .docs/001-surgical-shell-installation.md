@@ -1,7 +1,8 @@
 # ADR 001: Surgical Shell Installation
 
-**Status:** Proposed
+**Status:** Accepted
 **Date:** 2025-10-15
+**Implemented:** 2025-10-17
 **Decision Makers:** Cengiz Han
 **Technical Story:** Support both macOS (zsh) and Codespaces (bash) with environment-specific shell configurations
 
