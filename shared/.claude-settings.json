@@ -11,7 +11,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "happy notify -p \"🔔 Claude Code needs your input\" --priority high"
+            "command": "happy notify -p \"🔔 Claude Code needs your input\" 2>/dev/null || true"
           }
         ]
       }
@@ -22,7 +22,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "happy notify -p \"✅ Task completed\""
+            "command": "happy notify -p \"✅ Task completed\" 2>/dev/null || true"
           }
         ]
       }
