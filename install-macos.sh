@@ -8,7 +8,7 @@ echo "Starting dotfiles installation for macOS..."
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 MACOS_DIR="$DOTFILES_DIR/local-macos"
 SHARED_DIR="$DOTFILES_DIR/shared"
-TIMESTAMP=$(date +%Y-%m-%d)
+TIMESTAMP=$(date +%Y%m%d_%H%M%S_%3N)
 
 echo "Dotfiles directory: $DOTFILES_DIR"
 echo "macOS config directory: $MACOS_DIR"
@@ -239,7 +239,7 @@ echo "2. Authenticate Claude Code:"
 echo "   claude"
 echo ""
 echo "3. (Optional) Set up push notifications:"
-echo "   happy auth"
+echo "   happy auth login [--force]"
 echo "   Follow the prompts to authenticate with Happy Coder"
 echo "   See .docs/CLAUDE_NOTIFICATIONS_SETUP.md for details"
 echo ""

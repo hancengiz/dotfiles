@@ -12,7 +12,7 @@ fi
 
 CODESPACES_DIR="$DOTFILES_DIR/codespaces"
 SHARED_DIR="$DOTFILES_DIR/shared"
-TIMESTAMP=$(date +%Y-%m-%d)
+TIMESTAMP=$(date +%Y%m%d_%H%M%S_%3N)
 
 echo "Dotfiles directory: $DOTFILES_DIR"
 echo "Codespaces config directory: $CODESPACES_DIR"
@@ -185,7 +185,7 @@ echo "2. Authenticate Claude Code:"
 echo "   claude"
 echo ""
 echo "3. (Optional) Set up push notifications:"
-echo "   happy auth"
+echo "   happy auth login [--force]"
 echo "   Follow the prompts to authenticate with Happy Coder"
 echo "   See .docs/CLAUDE_NOTIFICATIONS_SETUP.md for details"
 echo ""

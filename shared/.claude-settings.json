@@ -11,7 +11,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "npx -y happy-coder send \"🔔 Claude Code needs your input\" --priority high"
+            "command": "happy notify -p \"🔔 Claude Code needs your input\" --priority high"
           }
         ]
       }
@@ -22,7 +22,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "npx -y happy-coder send \"✅ Task completed\""
+            "command": "happy notify -p \"✅ Task completed\""
           }
         ]
       }
