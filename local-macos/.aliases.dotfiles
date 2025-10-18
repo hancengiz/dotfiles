@@ -63,9 +63,8 @@ alias dcd="docker-compose down"
 # ------------------------------------
 
 # Quick access to Claude with auto-accept permissions
-# Use 'cc' or 'clauded' for yolo mode, or 'happy --yolo' for mobile control
-alias cc='command claude --dangerously-skip-permissions'
-alias clauded='command claude --dangerously-skip-permissions'
+# Use 'cc' for yolo mode via Happy
+alias cc='happy --yolo'
 
 # Claude with proxy
 alias pclaude='HTTP_PROXY=http://127.0.0.1:9090 NODE_TLS_REJECT_UNAUTHORIZED=0 command claude'
