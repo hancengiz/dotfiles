@@ -62,10 +62,10 @@ alias dcd="docker-compose down"
 # Claude Code aliases
 # ------------------------------------
 
-# Claude Code with auto-accept permissions (use in trusted environments like Codespaces)
+# Quick access to Claude with auto-accept permissions
+# Use 'cc' or 'clauded' for yolo mode, or 'happy --yolo' for mobile control
 alias cc='command claude --dangerously-skip-permissions'
 alias clauded='command claude --dangerously-skip-permissions'
-alias claude='command claude --dangerously-skip-permissions'
 
 # ------------------------------------
 # Custom Functions
