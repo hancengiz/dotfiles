@@ -5,7 +5,7 @@ Automated shell configuration for consistent development environments across pla
 ```mermaid
 flowchart LR
     A["🆕 Fresh Machine"] --> B["⚡ Run Installer"]
-    B --> C["🤖 Auto-Install:<br/>• Homebrew (macOS)<br/>• Powerlevel10k (macOS)<br/>• Node.js<br/>• 🤖 Claude Code CLI<br/>• 📱 Happy Coder<br/>• ccstatusline<br/>• Shell configs"]
+    B --> C["🤖 Auto-Install:<br/>• Homebrew (macOS)<br/>• Powerlevel10k (macOS)<br/>• Node.js<br/>• 🤖 Claude Code CLI<br/>• 📱 Happy Coder<br/>• ccstatusline<br/>• viddy (macOS)<br/>• Shell configs"]
     C --> D["👤 Configure:<br/>Auth + Git + Notifications"]
     D --> E["🚀 Ready to Hack!"]
 
@@ -297,6 +297,7 @@ This will run the interactive configuration wizard.
 - [Claude Code CLI](https://docs.claude.com/en/docs/claude-code/overview)
 - [Happy Coder](https://github.com/slopus/happy-cli)
 - [ccstatusline](https://github.com/sirmalloc/ccstatusline)
+- [viddy](https://github.com/sachaos/viddy) (macOS only) - Modern watch command replacement
 
 **Features:**
 - Push notifications when Claude Code needs input

@@ -174,6 +174,17 @@ else
     echo "✓ Happy Coder installed successfully"
 fi
 
+# Install viddy
+echo ""
+echo "Installing viddy (modern watch command replacement)..."
+if brew list viddy &> /dev/null; then
+    echo "✓ viddy is already installed"
+else
+    echo "Installing viddy via Homebrew..."
+    brew install viddy
+    echo "✓ viddy installed successfully"
+fi
+
 # Configure Claude Code settings
 echo ""
 echo "Configuring Claude Code settings..."
