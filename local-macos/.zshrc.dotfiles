@@ -18,7 +18,7 @@ export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 
 # HAPPY Coder Configuration
-export HAPPY_SERVER_URL="https://happy-cengiz.up.railway.app"
+export HAPPY_SERVER_URL="https://happy.cengizhan.com/"
 
 # Load Powerlevel10k theme
 source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
