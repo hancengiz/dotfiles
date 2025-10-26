@@ -128,16 +128,16 @@ if [ ! -d "$HOME/.claude" ]; then
     mkdir -p "$HOME/.claude"
 fi
 
-if [ -f "$SHARED_DIR/.claude-settings.json" ]; then
+if [ -f "$CODESPACES_DIR/.claude-settings.json" ]; then
     if [ -f "$HOME/.claude/settings.json" ]; then
         echo "Backing up Claude settings to settings.json.backup.$TIMESTAMP"
         cp "$HOME/.claude/settings.json" "$HOME/.claude/settings.json.backup.$TIMESTAMP"
     fi
-    echo "Replacing Claude Code settings.json..."
-    cp "$SHARED_DIR/.claude-settings.json" "$HOME/.claude/settings.json"
+    echo "Replacing Claude Code settings.json (Codespaces-specific with Happy only)..."
+    cp "$CODESPACES_DIR/.claude-settings.json" "$HOME/.claude/settings.json"
     echo "✓ Claude Code settings configured"
 else
-    echo "⚠ .claude-settings.json not found in shared/"
+    echo "⚠ .claude-settings.json not found in codespaces/"
 fi
 
 # Configure ccstatusline

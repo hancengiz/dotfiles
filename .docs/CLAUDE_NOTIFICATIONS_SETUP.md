@@ -4,15 +4,22 @@ This dotfiles configuration includes push notifications for Claude Code using **
 
 ## How It Works
 
-Claude Code hooks send push notifications to your phone via Happy Coder when:
+Claude Code hooks send notifications when:
 - **Notification hook**: Claude needs your input (high priority 🔔)
+  - Local macOS notification via terminal-notifier
+  - Mobile push notification via Happy Coder
 - **Stop hook**: A task completes (normal priority ✅)
+  - Local macOS notification via terminal-notifier
+  - Mobile push notification via Happy Coder
 
 ## What's Installed
 
 The installation scripts automatically install:
+- **terminal-notifier** (macOS only) - Local macOS notifications (works offline)
 - **Happy Coder** (`happy-coder`) - Mobile Claude Code control and notification tool
-- **.claude-settings.json** - Pre-configured hooks
+- **Platform-specific .claude-settings.json**:
+  - macOS: Uses both terminal-notifier and Happy
+  - Codespaces/Linux: Uses Happy only
 
 No additional manual installation needed!
 
@@ -58,6 +65,14 @@ Follow the Happy setup instructions to connect your mobile device to your channe
 ### 5. Test Your Setup
 
 Test your notifications:
+
+**Local macOS notifications (always work, even offline):**
+```bash
+# Test notification
+terminal-notifier -title "Claude Code" -message "🧪 Test notification" -sound default
+```
+
+**Mobile push notifications (requires Happy server):**
 ```bash
 # Test high-priority notification
 npx -y happy-coder send "🔔 Test notification from Claude Code" --priority high
@@ -66,7 +81,9 @@ npx -y happy-coder send "🔔 Test notification from Claude Code" --priority hig
 npx -y happy-coder send "✅ Test complete"
 ```
 
-You should receive push notifications on your mobile device.
+You should receive:
+- A macOS notification immediately (terminal-notifier)
+- A push notification on your mobile device (Happy Coder)
 
 ## Security Note
 
@@ -82,22 +99,35 @@ You can customize the hooks in `.claude-settings.json`:
 - Adjust priority levels
 - Modify notification timing
 - Add custom messages for different events
+- Enable/disable specific notification channels
 
 Example customization in `.claude-settings.json`:
 ```json
 {
   "hooks": {
-    "notification": {
-      "type": "command",
-      "command": "npx -y happy-coder send '🔔 Claude needs your attention!' --priority high"
-    },
-    "stop": {
-      "type": "command",
-      "command": "npx -y happy-coder send '✅ Task completed successfully!'"
-    }
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "terminal-notifier -title \"Claude Code\" -message \"🔔 Custom message\" -sound default 2>/dev/null || true"
+          },
+          {
+            "type": "command",
+            "command": "happy notify -p \"🔔 Custom message\" 2>/dev/null || true"
+          }
+        ]
+      }
+    ]
   }
 }
 ```
+
+**Note:** The current setup includes both local (terminal-notifier) and remote (Happy) notifications. You can:
+- Remove the Happy command to only use local macOS notifications
+- Remove the terminal-notifier command to only use mobile push notifications
+- Keep both for maximum reliability
 
 ## Using a Different Happy Server
 

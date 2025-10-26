@@ -1,0 +1,39 @@
+{
+  "statusLine": {
+    "type": "command",
+    "command": "npx -y ccstatusline@latest",
+    "padding": 0
+  },
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "terminal-notifier -title \"Claude Code\" -message \"🔔 Claude needs your input\" -sound default 2>/dev/null || true"
+          },
+          {
+            "type": "command",
+            "command": "happy notify -p \"🔔 Claude Code needs your input\" 2>/dev/null || true"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "terminal-notifier -title \"Claude Code\" -message \"✅ Task completed\" -sound default 2>/dev/null || true"
+          },
+          {
+            "type": "command",
+            "command": "happy notify -p \"✅ Task completed\" 2>/dev/null || true"
+          }
+        ]
+      }
+    ]
+  }
+}

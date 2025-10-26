@@ -185,6 +185,17 @@ else
     echo "✓ viddy installed successfully"
 fi
 
+# Install terminal-notifier
+echo ""
+echo "Installing terminal-notifier for local macOS notifications..."
+if brew list terminal-notifier &> /dev/null; then
+    echo "✓ terminal-notifier is already installed"
+else
+    echo "Installing terminal-notifier via Homebrew..."
+    brew install terminal-notifier
+    echo "✓ terminal-notifier installed successfully"
+fi
+
 # Configure Claude Code settings
 echo ""
 echo "Configuring Claude Code settings..."
@@ -192,16 +203,16 @@ if [ ! -d "$HOME/.claude" ]; then
     mkdir -p "$HOME/.claude"
 fi
 
-if [ -f "$SHARED_DIR/.claude-settings.json" ]; then
+if [ -f "$MACOS_DIR/.claude-settings.json" ]; then
     if [ -f "$HOME/.claude/settings.json" ]; then
         echo "Backing up Claude settings to settings.json.backup.$TIMESTAMP"
         cp "$HOME/.claude/settings.json" "$HOME/.claude/settings.json.backup.$TIMESTAMP"
     fi
-    echo "Replacing Claude Code settings.json..."
-    cp "$SHARED_DIR/.claude-settings.json" "$HOME/.claude/settings.json"
+    echo "Replacing Claude Code settings.json (macOS-specific with terminal-notifier)..."
+    cp "$MACOS_DIR/.claude-settings.json" "$HOME/.claude/settings.json"
     echo "✓ Claude Code settings configured"
 else
-    echo "⚠ .claude-settings.json not found in shared/"
+    echo "⚠ .claude-settings.json not found in local-macos/"
 fi
 
 # Configure ccstatusline
