@@ -68,6 +68,14 @@ alias cc='command claude --dangerously-skip-permissions'
 alias clauded='command claude --dangerously-skip-permissions'
 
 # ------------------------------------
+# GitHub Copilot CLI aliases
+# ------------------------------------
+
+# Copilot with all tools enabled
+alias copilotd='copilot --allow-all-tools'
+alias copilota='copilot --allow-all-tools'
+
+# ------------------------------------
 # Custom Functions
 # ------------------------------------
 
