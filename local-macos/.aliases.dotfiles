@@ -81,6 +81,16 @@ alias copilotd='copilot --allow-all-tools'
 alias copilota='copilot --allow-all-tools'
 
 # ------------------------------------
+# LLM aliases
+# ------------------------------------
+
+# Gemini with yes mode and specific model
+alias geminiy='gemini -y --model gemini-3-pro-preview'
+
+# LLM with GLM model
+alias llm-glm='llm -m glm'
+
+# ------------------------------------
 # Custom Functions
 # ------------------------------------
 
