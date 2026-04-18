@@ -13,10 +13,6 @@
           {
             "type": "command",
             "command": "terminal-notifier -title \"Claude Code\" -message \"🔔 Claude needs your input\" -sound default 2>/dev/null || true"
-          },
-          {
-            "type": "command",
-            "command": "happy notify -p \"🔔 Claude Code needs your input\" 2>/dev/null || true"
           }
         ]
       }
@@ -28,10 +24,6 @@
           {
             "type": "command",
             "command": "terminal-notifier -title \"Claude Code\" -message \"✅ Task completed\" -sound default 2>/dev/null || true"
-          },
-          {
-            "type": "command",
-            "command": "happy notify -p \"✅ Task completed\" 2>/dev/null || true"
           }
         ]
       }

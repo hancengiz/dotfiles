@@ -1,10 +1,21 @@
 # ADR 001: Surgical Shell Installation
 
-**Status:** Accepted
+**Status:** Accepted (partially superseded 2026-04)
 **Date:** 2025-10-15
 **Implemented:** 2025-10-17
 **Decision Makers:** Cengiz Han
 **Technical Story:** Support both macOS (zsh) and Codespaces (bash) with environment-specific shell configurations
+
+> **⚠ Historical notice (2026-04):** The core decision here — surgical `source`
+> line injection into `~/.zshrc` / `~/.bashrc` — is still in force. However,
+> two tools referenced throughout this document have since been removed:
+>
+> - **Powerlevel10k** replaced by **Starship**; `.p10k.zsh` is no longer tracked.
+> - **Happy Coder** removed entirely; notifications on macOS now go through
+>   `terminal-notifier` only.
+>
+> Treat references to p10k and Happy below as historical context, not current
+> implementation. See `README.md` for the current state.
 
 ---
 
