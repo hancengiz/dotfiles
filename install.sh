@@ -110,17 +110,6 @@ else
     echo "⚠ Warning: Claude Code installation may have failed"
 fi
 
-# Install Happy Coder
-echo ""
-echo "Installing Happy Coder for mobile Claude Code control..."
-if npm list -g happy-coder &> /dev/null; then
-    echo "✓ Happy Coder is already installed"
-else
-    echo "Installing Happy Coder via npm..."
-    npm install -g happy-coder
-    echo "✓ Happy Coder installed successfully"
-fi
-
 # Configure Claude Code settings
 echo ""
 echo "Configuring Claude Code settings..."
@@ -133,7 +122,7 @@ if [ -f "$CODESPACES_DIR/.claude-settings.json" ]; then
         echo "Backing up Claude settings to settings.json.backup.$TIMESTAMP"
         cp "$HOME/.claude/settings.json" "$HOME/.claude/settings.json.backup.$TIMESTAMP"
     fi
-    echo "Replacing Claude Code settings.json (Codespaces-specific with Happy only)..."
+    echo "Replacing Claude Code settings.json (Codespaces)..."
     cp "$CODESPACES_DIR/.claude-settings.json" "$HOME/.claude/settings.json"
     echo "✓ Claude Code settings configured"
 else
@@ -184,12 +173,7 @@ echo ""
 echo "2. Authenticate Claude Code:"
 echo "   claude"
 echo ""
-echo "3. (Optional) Set up push notifications:"
-echo "   happy auth login [--force]"
-echo "   Follow the prompts to authenticate with Happy Coder"
-echo "   See .docs/CLAUDE_NOTIFICATIONS_SETUP.md for details"
-echo ""
-echo "4. (Optional) Set up secrets via GitHub Codespaces:"
+echo "3. (Optional) Set up secrets via GitHub Codespaces:"
 echo "   Go to https://github.com/settings/codespaces"
 echo "   Use 'Codespaces secrets' to manage API keys"
 echo ""

@@ -62,33 +62,97 @@ alias dcd="docker-compose down"
 # Claude Code aliases
 # ------------------------------------
 
-# Quick access to Claude with auto-accept permissions
-# Use 'cc' for yolo mode via Happy
-alias cc='happy --yolo'
 
 # Claude with auto-skip permissions (danger mode)
-alias clauded='command claude --dangerously-skip-permissions'
+alias clauded='command claude --dangerously-skip-permissions --verbose'
+alias cc='clauded'
+
+# ECC: auto-sync Claude Code, launch CodeMie from local source
+CODEMIE_LOCAL="$HOME/code/codemie-code"
+
+ecc() {
+    # Pull latest CodeMie source and rebuild if changed
+    local before after
+    before=$(git -C "$CODEMIE_LOCAL" rev-parse HEAD 2>/dev/null)
+    git -C "$CODEMIE_LOCAL" pull --quiet 2>/dev/null
+    after=$(git -C "$CODEMIE_LOCAL" rev-parse HEAD 2>/dev/null)
+    if [ "$before" != "$after" ]; then
+        echo "⬆ CodeMie source updated. Rebuilding..."
+        (cd "$CODEMIE_LOCAL" && npm run build --silent 2>/dev/null)
+    fi
+
+    # Sync Claude Code to supported version if needed
+    local supported pinned
+    supported=$(_ecc-supported-version)
+    pinned=$(_ecc-pinned-version)
+    if [ -n "$supported" ] && [ "$supported" != "$pinned" ]; then
+        ecc-sync
+    fi
+
+    # Launch from local source build
+    node "$CODEMIE_LOCAL/bin/codemie-claude" --dangerously-skip-permissions --verbose "$@"
+}
 
 # Claude with proxy
-alias pclaude='HTTP_PROXY=http://127.0.0.1:9090 NODE_TLS_REJECT_UNAUTHORIZED=0 command claude'
+alias pclaude='HTTP_PROXY=http://127.0.0.1:9090 NODE_TLS_REJECT_UNAUTHORIZED=0 command clauded'
+
+# Droid with proxy
+alias pdroid='HTTP_PROXY=http://127.0.0.1:9090 HTTPS_PROXY=http://127.0.0.1:9090 NODE_TLS_REJECT_UNAUTHORIZED=0 command droid'
+
+# Dev environment (lazygit + claude code split)
+alias dev='~/dev.sh'
 
 # ------------------------------------
-# GitHub Copilot CLI aliases
+# CodeMie Claude version management
 # ------------------------------------
 
-# Copilot with all tools enabled
-alias copilotd='copilot --allow-all-tools'
-alias copilota='copilot --allow-all-tools'
+CODEMIE_CLAUDE_DIR="$HOME/.claude-code-pinned"
 
-# ------------------------------------
-# LLM aliases
-# ------------------------------------
+# Get the supported Claude Code version from local CodeMie source
+_ecc-supported-version() {
+    grep -o "CLAUDE_SUPPORTED_VERSION = '[^']*'" "$CODEMIE_LOCAL/dist/agents/plugins/claude/claude.plugin.js" 2>/dev/null | cut -d"'" -f2
+}
 
-# Gemini with yes mode and specific model
-alias geminiy='gemini -y --model gemini-3-pro-preview'
+# Get the currently pinned Claude Code version in our local install
+_ecc-pinned-version() {
+    local pkg="$CODEMIE_CLAUDE_DIR/node_modules/@anthropic-ai/claude-code/package.json"
+    [ -f "$pkg" ] && node -p "require('$pkg').version" 2>/dev/null
+}
 
-# LLM with GLM model
-alias llm-glm='llm -m glm'
+# Sync pinned Claude Code to CodeMie's supported version (auto-update if needed)
+ecc-sync() {
+    local supported pinned
+    supported=$(_ecc-supported-version)
+    if [ -z "$supported" ]; then
+        echo "✗ Could not read supported version from CodeMie. Is it installed?"
+        return 1
+    fi
+
+    pinned=$(_ecc-pinned-version)
+
+    echo "CodeMie supported: $supported"
+    echo "Pinned version:    ${pinned:-not installed}"
+
+    if [ "$supported" = "$pinned" ]; then
+        echo "✓ Already in sync."
+        return 0
+    fi
+
+    echo "→ Installing @anthropic-ai/claude-code@$supported ..."
+    mkdir -p "$CODEMIE_CLAUDE_DIR"
+    npm install --prefix "$CODEMIE_CLAUDE_DIR" @anthropic-ai/claude-code@"$supported" --save-exact && \
+    mkdir -p "$HOME/.local/bin" && \
+    ln -sf "$CODEMIE_CLAUDE_DIR/node_modules/.bin/claude" "$HOME/.local/bin/claude" && \
+    echo "✓ Pinned to $supported and symlinked to ~/.local/bin/claude"
+}
+
+# Show current status
+ecc-status() {
+    echo "CodeMie supported: $(_ecc-supported-version)"
+    echo "Pinned version:    $(_ecc-pinned-version)"
+    echo "Global claude:     $(command claude --version 2>/dev/null || echo 'not found')"
+    echo "Symlink:           $(ls -la "$HOME/.local/bin/claude" 2>/dev/null || echo 'not set')"
+}
 
 # ------------------------------------
 # Custom Functions

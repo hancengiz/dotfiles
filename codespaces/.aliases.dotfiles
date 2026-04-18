@@ -63,7 +63,7 @@ alias dcd="docker-compose down"
 # ------------------------------------
 
 # Quick access to Claude with auto-accept permissions
-# Use 'cc' or 'clauded' for yolo mode, or 'happy --yolo' for mobile control
+# Use 'cc' or 'clauded' for yolo mode
 alias cc='command claude --dangerously-skip-permissions'
 alias clauded='command claude --dangerously-skip-permissions'
 

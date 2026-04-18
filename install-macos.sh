@@ -47,15 +47,15 @@ else
     fi
 fi
 
-# Install Powerlevel10k
+# Install Starship
 echo ""
-echo "Installing Powerlevel10k theme..."
-if brew list powerlevel10k &> /dev/null; then
-    echo "✓ Powerlevel10k is already installed"
+echo "Installing Starship prompt..."
+if brew list starship &> /dev/null; then
+    echo "✓ Starship is already installed"
 else
-    echo "Installing Powerlevel10k via Homebrew..."
-    brew install powerlevel10k
-    echo "✓ Powerlevel10k installed successfully"
+    echo "Installing Starship via Homebrew..."
+    brew install starship
+    echo "✓ Starship installed successfully"
 fi
 
 # Install Node.js if not present
@@ -108,6 +108,21 @@ else
     echo "✓ Source line added to .zshrc"
 fi
 
+# Step 4: Install Starship config on first install (preserve existing customizations)
+echo "Ensuring Starship config exists..."
+mkdir -p "$HOME/.config"
+STARSHIP_CONFIG="$HOME/.config/starship.toml"
+STARSHIP_SOURCE="$SHARED_DIR/starship.toml"
+if [ -f "$STARSHIP_CONFIG" ]; then
+    echo "✓ Preserving existing Starship config at ~/.config/starship.toml"
+elif [ -f "$STARSHIP_SOURCE" ]; then
+    cp "$STARSHIP_SOURCE" "$STARSHIP_CONFIG"
+    echo "✓ Installed ~/.config/starship.toml from dotfiles"
+else
+    starship preset nerd-font-symbols -o "$STARSHIP_CONFIG"
+    echo "✓ Created ~/.config/starship.toml from nerd-font-symbols preset (fallback)"
+fi
+
 # ==============================================================================
 # FULL REPLACEMENT: All other files (with timestamped backups)
 # ==============================================================================
@@ -123,18 +138,6 @@ echo "Replacing .aliases..."
 cp "$MACOS_DIR/.aliases.dotfiles" "$HOME/.aliases"
 echo "✓ .aliases replaced"
 
-# Backup and replace .p10k.zsh
-if [ -f "$MACOS_DIR/.p10k.zsh" ]; then
-    if [ -f "$HOME/.p10k.zsh" ]; then
-        echo "Backing up .p10k.zsh to .p10k.zsh.backup.$TIMESTAMP"
-        cp "$HOME/.p10k.zsh" "$HOME/.p10k.zsh.backup.$TIMESTAMP"
-    fi
-    echo "Replacing .p10k.zsh..."
-    cp "$MACOS_DIR/.p10k.zsh" "$HOME/.p10k.zsh"
-    echo "✓ .p10k.zsh replaced"
-else
-    echo "⚠ Warning: .p10k.zsh not found in $MACOS_DIR"
-fi
 
 # Backup and replace .gitconfig
 if [ -f "$HOME/.gitconfig" ]; then
@@ -144,6 +147,18 @@ fi
 echo "Replacing .gitconfig..."
 cp "$SHARED_DIR/.gitconfig" "$HOME/.gitconfig"
 echo "✓ .gitconfig replaced"
+
+# Install ~/dev.sh (iTerm2 split with lazygit + claude code), used by 'dev' alias
+DEV_SCRIPT_SRC="$MACOS_DIR/scripts/dev.sh"
+if [ -f "$DEV_SCRIPT_SRC" ]; then
+    if [ -f "$HOME/dev.sh" ]; then
+        echo "Backing up ~/dev.sh to dev.sh.backup.$TIMESTAMP"
+        cp "$HOME/dev.sh" "$HOME/dev.sh.backup.$TIMESTAMP"
+    fi
+    cp "$DEV_SCRIPT_SRC" "$HOME/dev.sh"
+    chmod +x "$HOME/dev.sh"
+    echo "✓ ~/dev.sh installed"
+fi
 
 # Install Claude Code
 echo ""
@@ -161,17 +176,6 @@ if command -v claude &> /dev/null; then
     echo "✓ Claude Code version: $(claude --version 2>/dev/null || echo 'installed')"
 else
     echo "⚠ Warning: Claude Code installation may have failed"
-fi
-
-# Install Happy Coder
-echo ""
-echo "Installing Happy Coder for mobile Claude Code control..."
-if npm list -g happy-coder &> /dev/null; then
-    echo "✓ Happy Coder is already installed"
-else
-    echo "Installing Happy Coder via npm..."
-    npm install -g happy-coder
-    echo "✓ Happy Coder installed successfully"
 fi
 
 # Install viddy
@@ -234,6 +238,37 @@ else
     echo "⚠ ccstatusline.settings.json not found in shared/"
 fi
 
+# Install screenshots archive LaunchAgent (runs script directly from the repo — no copy)
+echo ""
+echo "Installing screenshots archive LaunchAgent..."
+mkdir -p "$HOME/Library/LaunchAgents"
+
+SCREENSHOTS_SCRIPT="$MACOS_DIR/launchd/screenshots-archive.sh"
+SCREENSHOTS_PLIST_TEMPLATE="$MACOS_DIR/launchd/com.cengiz.screenshots-archive.plist.template"
+SCREENSHOTS_PLIST_DST="$HOME/Library/LaunchAgents/com.cengiz.screenshots-archive.plist"
+SCREENSHOTS_LABEL="com.cengiz.screenshots-archive"
+
+if [ -f "$SCREENSHOTS_SCRIPT" ] && [ -f "$SCREENSHOTS_PLIST_TEMPLATE" ]; then
+    chmod +x "$SCREENSHOTS_SCRIPT"
+
+    sed -e "s|__HOME__|$HOME|g" -e "s|__DOTFILES_DIR__|$DOTFILES_DIR|g" \
+        "$SCREENSHOTS_PLIST_TEMPLATE" > "$SCREENSHOTS_PLIST_DST"
+    echo "✓ Installed $SCREENSHOTS_PLIST_DST"
+
+    if launchctl print "gui/$(id -u)/$SCREENSHOTS_LABEL" &>/dev/null; then
+        launchctl bootout "gui/$(id -u)/$SCREENSHOTS_LABEL" 2>/dev/null || true
+    fi
+    if launchctl bootstrap "gui/$(id -u)" "$SCREENSHOTS_PLIST_DST" 2>/dev/null; then
+        echo "✓ LaunchAgent $SCREENSHOTS_LABEL loaded (runs daily at 3:00 AM)"
+    else
+        echo "⚠ Failed to load LaunchAgent; load manually with:"
+        echo "    launchctl bootstrap gui/\$(id -u) $SCREENSHOTS_PLIST_DST"
+    fi
+    echo "  Remember: mark ~/Desktop/screenshots as 'Keep Downloaded' in Finder."
+else
+    echo "⚠ screenshots-archive.sh or plist template missing from $MACOS_DIR/launchd"
+fi
+
 echo ""
 echo "=========================================="
 echo "✓ macOS dotfiles installation complete!"
@@ -245,10 +280,12 @@ echo "    ~/.zshrc → sources ~/.zshrc.dotfiles"
 echo ""
 echo "  REPLACED (with timestamped backups):"
 echo "    ~/.aliases"
-echo "    ~/.p10k.zsh"
 echo "    ~/.gitconfig"
 echo "    ~/.claude/settings.json"
 echo "    ~/.config/ccstatusline/settings.json"
+echo ""
+echo "  CREATED IF MISSING:"
+echo "    ~/.config/starship.toml"
 echo ""
 echo "Backups created with timestamp: $TIMESTAMP"
 echo ""
@@ -260,16 +297,12 @@ echo ""
 echo "2. Authenticate Claude Code:"
 echo "   claude"
 echo ""
-echo "3. (Optional) Set up push notifications:"
-echo "   happy auth login [--force]"
-echo "   Follow the prompts to authenticate with Happy Coder"
-echo "   See .docs/CLAUDE_NOTIFICATIONS_SETUP.md for details"
+echo "3. (Optional) Create ~/.secrets.zsh for API keys:"
+echo "   This file is automatically sourced by .zshrc.dotfiles and ignored by git"
+echo "   Example: echo 'export ZAI_API_KEY=\"\"' > ~/.secrets.zsh && chmod 600 ~/.secrets.zsh"
 echo ""
-echo "4. (Optional) Create ~/.secrets.zsh for API keys:"
-echo "   This file is automatically sourced and ignored by git"
-echo "   See README.md for setup instructions"
-echo ""
-echo "5. (Optional) Customize Powerlevel10k theme:"
-echo "   p10k configure"
-echo "   (A default theme is already configured)"
+echo "4. (Optional) Customize Starship prompt:"
+echo "   Edit ~/.config/starship.toml"
+echo "   To reset it to the default preset manually:"
+echo "   starship preset nerd-font-symbols -o ~/.config/starship.toml"
 echo ""

@@ -4,29 +4,5 @@
     "type": "command",
     "command": "npx -y ccstatusline@latest",
     "padding": 0
-  },
-  "hooks": {
-    "Notification": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "happy notify -p \"🔔 Claude Code needs your input\" 2>/dev/null || true"
-          }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "happy notify -p \"✅ Task completed\" 2>/dev/null || true"
-          }
-        ]
-      }
-    ]
   }
 }
